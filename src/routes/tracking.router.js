@@ -15,8 +15,8 @@ trackingRoute.get(
   [tokenVerified, forUser],
   getTrackingToday
 );
-trackingRoute.post(
-  '/track/history',
+trackingRoute.get(
+  '/track/:date',
   [tokenVerified, forUser],
   getTrackingByDate
 );

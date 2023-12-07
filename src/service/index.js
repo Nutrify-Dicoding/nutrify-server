@@ -1,20 +1,19 @@
 const getLevelActivity = (levActivicty) => {
-  if (levActivicty === 1) {
+  if (levActivicty === 'aktivitas sangat ringan') {
     return 1.2;
   }
-  if (levActivicty === 1) {
+  if (levActivicty === 'aktivitas ringan') {
     return 1.4;
   }
-  if (levActivicty === 3) {
+  if (levActivicty === 'aktivitas sedang') {
     return 1.5;
   }
-  if (levActivicty === 4) {
+  if (levActivicty === 'aktivitas berat') {
     return 1.7;
   }
-  if (levActivicty === 5) {
+  if (levActivicty === 'aktivitas sangat berat') {
     return 1.9;
   }
-
   return 1.2;
 };
 
@@ -78,10 +77,18 @@ const totalNutri = (data) => {
 };
 
 const validateUserProfileData = (data) => {
-  const { username, gender, tinggi, berat, levelAktivitas, umur } = data;
+  const { username, gender, tinggi, berat, levelAktivitas, umur } =
+    data;
 
-  if (!username || !gender || !tinggi || !berat || !levelAktivitas || !umur) {
-      return false;
+  if (
+    !username ||
+    !gender ||
+    !tinggi ||
+    !berat ||
+    !levelAktivitas ||
+    !umur
+  ) {
+    return false;
   }
   return true;
 };
@@ -91,5 +98,5 @@ module.exports = {
   hitungBMI,
   findByDate,
   totalNutri,
-  validateUserProfileData
+  validateUserProfileData,
 };

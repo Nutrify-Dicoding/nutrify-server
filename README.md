@@ -20,8 +20,9 @@ BASE URL :
 - Endpoint : `(base-url)/auth/signup`
 
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
 
@@ -39,7 +40,7 @@ BASE URL :
 ```
 
 - Authentication - Bearer Token : `<token key>`
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CE9MZA4AC1N049S80ST9"}
 {
@@ -70,8 +71,9 @@ BASE URL :
 - Endpoint : `(base-url)/auth/signin`
 
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
 
@@ -83,7 +85,7 @@ BASE URL :
 ```
 
 - Authentication - Bearer Token : `<token key>`
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CE9NWYYQ3C43PYCDNEZ8"}
 {
@@ -217,7 +219,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/foods`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CE9PT8RSYWQEFXFB0TRP"}
 [
@@ -247,7 +249,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/foods/{:food_id}`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEBTD59T5MQ1G10YM3MT"}
 [
@@ -277,7 +279,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/foods/category/{:category_id}`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEBVVCCF1GAN74XSVA6Y"}
 [
@@ -307,7 +309,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/foods/search?name={:query}`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEBVVCCF1GAN77KW9SSS"}
 [
@@ -339,7 +341,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/categories`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEBVVCCF1GAN7AXDHN99"}
 [
@@ -357,17 +359,18 @@ BASE URL :
 - Method : POST
 - Endpoint : `(base-url)/categories`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
-   `json
-   {
-   "_id": "string",
-   "name":"string"
-   }
-   `
-   __Response__ :
+  `json
+ {
+ "_id": "string",
+ "name":"string"
+ }
+ `
+  **Response** :
 
 ```json {"id":"01HFX9CEBVVCCF1GAN7D3JAY2J"}
 {
@@ -388,17 +391,18 @@ BASE URL :
 - Method : POST
 - Endpoint : `(base-url)/favorites`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
-   `json
-   {
-   "user":"string unique",
-   "food":"string unique"
-   }
-   `
-   **Response** :
+  `json
+ {
+ "user":"string unique",
+ "food":"string unique"
+ }
+ `
+  **Response** :
 
 ```json {"id":"01HFX9CEBZW5KAS0YKMFX2F5E2"}
 {
@@ -418,7 +422,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/favorites`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC08V2WBKNDSS05J6J2"}
 [
@@ -449,7 +453,7 @@ BASE URL :
 - Method : DELETE
 - Endpoint : `(base-url)/favorites/{:favorite_id}`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC08V2WBKNDSVRBKE07"}
 {
@@ -462,10 +466,11 @@ BASE URL :
 **Request** :
 
 - Method : POST
-- Endpoint : `(base-url)/tracking`
+- Endpoint : `(base-url)/track`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
 
@@ -518,9 +523,9 @@ BASE URL :
 **Request** :
 
 - Method : GET
-- Endpoint : `(base-url)/tracking`
+- Endpoint : `(base-url)/track/history`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC1FQN8KE7S320FWET1"}
 {
@@ -573,9 +578,9 @@ BASE URL :
 **Request** :
 
 - Method : GET
-- Endpoint : `(base-url)/tracking/today`
+- Endpoint : `(base-url)/track/today`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC1FQN8KE7S33GMNZXY"}
 {
@@ -628,9 +633,9 @@ BASE URL :
 **Request** :
 
 - Method : GET
-- Endpoint : `(base-url)/tracking/{:date}`
+- Endpoint : `(base-url)/track/{:date}`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC1FQN8KE7S36KBTKSB"}
 {
@@ -687,7 +692,7 @@ BASE URL :
 - Method : GET
 - Endpoint : `(base-url)/profile`
 - Header : - Accept : application/json
-   **Response** :
+  **Response** :
 
 ```json {"id":"01HFX9CEC2K68587F4B0B7Q6D2"}
 {
@@ -720,21 +725,22 @@ BASE URL :
 - Method : PUT
 - Endpoint : `(base-url)/profile`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body : (example)
-   `json
-   {
-   "username": "string",
-   "gender": "string",
-   "tinggi": "number",
-   "berat": "number",
-   "levelAktivitas": "number",
-   "umur": "number"
-   }
-   `
-   **Response** :
+  `json
+ {
+ "username": "string",
+ "gender": "string",
+ "tinggi": "number",
+ "berat": "number",
+ "levelAktivitas": "number",
+ "umur": "number"
+ }
+ `
+  **Response** :
 
 ```json {"id":"01HFX9CEC2K68587F4B48VZKX4"}
 {
@@ -761,19 +767,20 @@ BASE URL :
 - Method : PUT
 - Endpoint : `(base-url)/profile/account`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body :
-   `json
-   {
-   "email": "string",
-   "currentPassword": "string",
-   "newPassword": "string",
-   "confirmPassword": "string"
-   }
-   `
-   **Response** :
+  `json
+ {
+ "email": "string",
+ "currentPassword": "string",
+ "newPassword": "string",
+ "confirmPassword": "string"
+ }
+ `
+  **Response** :
 
 ```json {"id":"01HFX9CEC3KZKATZGP0DS6Q2XP"}
 {
@@ -792,18 +799,19 @@ BASE URL :
 - Method : PUT
 - Endpoint : `(base-url)/profile/change-password`
 - Header :
-   - Content-Type : application/json
-   - Accept : application/json
+
+  - Content-Type : application/json
+  - Accept : application/json
 
 - Body : (example)
-   `json
-   {
-   "currentPassword":"string",
-   "newPassword":"string",
-   "confirmPassword":"string"
-   }
-   `
-   **Response** :
+  `json
+ {
+ "currentPassword":"string",
+ "newPassword":"string",
+ "confirmPassword":"string"
+ }
+ `
+  **Response** :
 
 ```json {"id":"01HFX9CEC3KZKATZGP0ESDHNPH"}
 {

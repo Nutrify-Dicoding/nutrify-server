@@ -14,8 +14,6 @@ const createCategory = async (req, res) => {
     const { data } = req.body;
     const categoryCreated = new Category(data);
 
-    console.log(data);
-
     await categoryCreated.save();
     res.status(201).send({
       message: 'category added successfully',

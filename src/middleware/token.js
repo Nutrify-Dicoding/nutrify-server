@@ -14,14 +14,15 @@ module.exports = {
     try {
       const token = request.headers.authorization;
       const verified = jwt.verify(token.split(' ')[1], SECRET_KEY);
+
       if (verified) {
         next();
       } else {
-        response.status(500).send('token is invalid');
+        response.status(401).send('token is invalid');
         response.end();
       }
     } catch (error) {
-      response.status(500).send({ message: error.message });
+      response.status(401).send({ message: error.message });
       response.end();
     }
   },
@@ -58,7 +59,7 @@ module.exports = {
         next();
       } else {
         response
-          .status(500)
+          .status(401)
           .send({ message: 'unauthorized, forbidden ' });
         response.end();
       }

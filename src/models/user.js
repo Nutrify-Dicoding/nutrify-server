@@ -15,7 +15,7 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ['pria', 'perempuan'],
+      enum: ['pria', 'wanita'],
     },
     status: {
       type: String,
@@ -50,6 +50,9 @@ const userSchema = new Schema(
     },
     carboNeeded: {
       type: Number,
+    },
+    levelActivity: {
+      type: String,
     },
   },
   {

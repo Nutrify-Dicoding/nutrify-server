@@ -56,12 +56,12 @@ const signup = async (req, res) => {
       tinggi: tinggi,
       berat: berat,
       umur: umur,
-      levelAktivitas: levelAktivitas,
+      levelActivity: levelAktivitas,
       caloriNeeded: caloriNeeded,
       carboNeeded: carboNeeded,
       proteinNeeded: proteinNeeded,
       fatNeeded: fatNeeded,
-      status : statusBMI,
+      status: statusBMI,
     });
 
     await newUser.save();
@@ -80,15 +80,14 @@ const signup = async (req, res) => {
       carboNeeded: carboNeeded,
       proteinNeeded: proteinNeeded,
       fatNeeded: fatNeeded,
-      status : statusBMI,
+      status: statusBMI,
     };
 
     return res
       .status(200)
       .json({ message: 'signup success', body: userData });
   } catch (error) {
-    res.status(500).send({ message: 'error' });
-    console.log(error);
+    res.status(500).send({ message: error });
   }
 };
 
@@ -131,7 +130,7 @@ const signin = async (req, res) => {
         tinggi: user.tinggi,
         berat: user.berat,
         umur: user.umur,
-        levelAktivitas: user.levelAktivitas,
+        levelAktivitas: user.levelActivity,
         caloriNeeded: user.caloriNeeded,
         carboNeeded: user.carboNeeded,
         proteinNeeded: user.proteinNeeded,

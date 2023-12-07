@@ -97,7 +97,7 @@ const getTrackingToday = async (req, res) => {
     }
 
     const result = totalNutri(todayTrack);
-
+    console.log(todayTrack);
     res.status(200).json({
       message: 'Get tracking success',
       body: {
@@ -116,7 +116,7 @@ const getTrackingByDate = async (req, res) => {
   const { data } = tokenReturned(req, res);
   const userId = data._id;
 
-  let { date } = req.body;
+  let { date } = req.params.date;
   let dateTrack = null;
   try {
     // throw err when date not found
