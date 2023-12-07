@@ -1,76 +1,67 @@
 const { tokenReturned } = require('../middleware/token');
 const Tracking = require('../models/tracking');
 const { findByDate, totalNutri } = require('../service');
+const Food = require('../models/food');
 
-const addTracking = async (req, res) => {
+const addTracking = async (request, response) => {
+  const { data } = tokenReturned(request, response);
+  const userId = data._id;
+  let { food } = request.body;
   try {
-    // validasi user is login
-    const { data } = tokenReturned(req, res);
-
-    // get data from request
-    const userId = data._id;
-    let food = req.body.food;
-
-    // find user
     const trackExist = await Tracking.findOne({ user: userId });
     const tanggal = new Date();
     let today = tanggal.toLocaleDateString('fr-CA');
+    let time = new Date().toLocaleTimeString();
 
+    const dataFood = await Food.findById({ _id: food.foodId });
     const tracking = {
       date: today,
-      food: food,
+      food: { ...food, dataFood },
     };
 
-    // cek apakah ada track sebelumnya
+    console.log(dataFood);
+
     if (trackExist) {
       const trackingIndex = findByDate(trackExist.tracking, today);
 
-      // jika track sebelumnya sudah terdapat tracking dihari yang sama
-
-      if (trackingIndex >= 0) {
-        trackExist.tracking[trackingIndex].food.push(food);
+      if (trackingIndex > -1) {
+        // trackExist.tracking[trackingIndex].totCal += totCal
+        // trackExist.tracking[trackingIndex].totCarbon += totCarbon
+        // trackExist.food.push({ ...food, dataFood });
 
         await trackExist.save();
-
-        return res
-          .status(200)
-          .json({ message: 'tracking success', body: trackExist });
+      } else {
+        trackExist.tracking.push(tracking);
+        await trackExist.save();
       }
-      trackExist.tracking.push(tracking);
 
-      await trackExist.save();
-      return res
-        .status(200)
-        .json({ message: 'add success', body: trackExist });
+      response.send({
+        message: 'tracking added successfully',
+        tracking,
+      });
+    } else {
+      const newTrack = {
+        user: userId,
+        tracking: [tracking],
+      };
+      const dataSaved = new Tracking(newTrack);
+      await dataSaved.save();
+      response.send({
+        message: 'tracking added successfully',
+        newTrack,
+      });
     }
-    // cek apakah merupakan track baru
-
-    const newTrack = {
-      user: userId,
-      tracking: [tracking],
-    };
-    const dataSaved = new Tracking(newTrack);
-
-    await dataSaved.save();
-    res
-      .status(200)
-      .json({ message: 'add new tracking success', body: dataSaved });
-    // tambahkan kedatabase
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    response.status(500).send({ error: error.message });
   }
 };
 
-const getTrackingToday = async (req, res) => {
-  // validitasi token
-  const { data } = tokenReturned(req, res);
+const getTrackingToday = async (request, response) => {
+  const { data } = tokenReturned(request, response);
   const userId = data._id;
-  // get date
-
-  const tanggal = new Date();
-  let today = tanggal.toLocaleDateString('fr-CA');
+  let today = new Date();
+  today = today.toLocaleDateString('fr-CA');
   let todayTrack = null;
-
   try {
     const tracking = await Tracking.findOne({
       user: userId,
@@ -78,37 +69,34 @@ const getTrackingToday = async (req, res) => {
       path: 'tracking',
       populate: {
         path: 'food',
-        populate: 'foodId',
+        model: 'foodId',
       },
     });
+    if (tracking) {
+      const todayTracking = findByDate(tracking.tracking, today);
 
-    // if today tracking is null
-    if (tracking === null) {
-      return res.status(201).json({
-        message: 'belum ada tracking',
-      });
-    }
+      if (todayTracking > -1) {
+        todayTrack = tracking.tracking[todayTracking];
+      }
 
-    // if today tracking is found
-    const todayTracking = findByDate(tracking.tracking, today);
+      const { totCarb, totProtein, totFat, totCal, totCarbon } =
+        totalNutri(todayTrack);
 
-    if (todayTracking > -1) {
-      todayTrack = tracking.tracking[todayTracking];
-    }
-
-    const result = totalNutri(todayTrack);
-
-    res.status(200).json({
-      message: 'Get tracking success',
-      body: {
+      return response.send({
         _id: tracking._id,
         user: tracking.user,
         tracking: todayTrack,
-        result,
-      },
-    });
+        totCarb: totCarb,
+        totProtein: totProtein,
+        totFat: totFat,
+        totCal: totCal,
+        totCarbon: totCarbon,
+      });
+    } else {
+      return response.send(null);
+    }
   } catch (error) {
-    res.status(500).send({ error: error.message });
+    return response.status(500).send({ error: error.message });
   }
 };
 
