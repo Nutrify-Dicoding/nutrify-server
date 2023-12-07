@@ -22,6 +22,37 @@ const foodTrackingSchema = new Schema(
           type: String,
           required: true,
         },
+        dataFood: {
+          name: {
+            type: String,
+            maxlengh: 255,
+            required: true,
+          },
+          image: {
+            type: String,
+            required: true,
+          },
+          category: {
+            type: String,
+            ref: 'Category',
+          },
+          cal: {
+            type: Number,
+            required: true,
+          },
+          protein: {
+            type: Number,
+            required: true,
+          },
+          carb: {
+            type: Number,
+            required: true,
+          },
+          fat: {
+            type: Number,
+            required: true,
+          },
+        },
       },
       { _id: false },
     ],

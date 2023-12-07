@@ -1,6 +1,7 @@
 const { tokenReturned } = require('../middleware/token');
 const Tracking = require('../models/tracking');
 const { findByDate, totalNutri } = require('../service');
+const Food = require('../models/food');
 
 const addTracking = async (req, res) => {
   try {
@@ -16,9 +17,11 @@ const addTracking = async (req, res) => {
     const tanggal = new Date();
     let today = tanggal.toLocaleDateString('fr-CA');
 
+    const dataFood = await Food.findOne({ _id: food.foodId });
+
     const tracking = {
       date: today,
-      food: food,
+      food: { ...food, dataFood },
     };
 
     // cek apakah ada track sebelumnya
@@ -28,7 +31,10 @@ const addTracking = async (req, res) => {
       // jika track sebelumnya sudah terdapat tracking dihari yang sama
 
       if (trackingIndex >= 0) {
-        trackExist.tracking[trackingIndex].food.push(food);
+        trackExist.tracking[trackingIndex].food.push({
+          ...food,
+          dataFood,
+        });
 
         await trackExist.save();
 
@@ -49,6 +55,8 @@ const addTracking = async (req, res) => {
       user: userId,
       tracking: [tracking],
     };
+
+    console.log(tracking);
     const dataSaved = new Tracking(newTrack);
 
     await dataSaved.save();
@@ -78,7 +86,7 @@ const getTrackingToday = async (req, res) => {
       path: 'tracking',
       populate: {
         path: 'food',
-        populate: 'foodId',
+        model: 'foodId',
       },
     });
 
@@ -95,9 +103,9 @@ const getTrackingToday = async (req, res) => {
     if (todayTracking > -1) {
       todayTrack = tracking.tracking[todayTracking];
     }
+    console.log(todayTrack.food[todayTracking]);
+    const result = totalNutri(todayTrack.food);
 
-    const result = totalNutri(todayTrack);
-    console.log(todayTrack);
     res.status(200).json({
       message: 'Get tracking success',
       body: {
